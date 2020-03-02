@@ -6,12 +6,16 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Dashboard from './pages/user/Dashboard'
 import AdminDashboard from './pages/admin/Dashboard'
+import Notes from './components/Notes'
+import Reminders from './components/Reminders'
+import Todo from './components/Todo'
 
 // Routes
 const routes = [
   {
     path: '/',
     name: 'home',
+    redirect: '/register',
     component: Home,
     meta: {
       auth: undefined

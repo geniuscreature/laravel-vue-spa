@@ -4,12 +4,11 @@
             <div class="card-header">Admin Dashboard</div>
 
             <div class="card-body">
-                Bienvenue sur votre dashboard administrateur
+                <a href="#" @click.prevent="$auth.logout()">Logout</a>
             </div>
 
         </div>
         <div class="card card-default">
-            <div class="card-header">Liste des utilisateurs</div>
 
             <div class="card-body">
                 <userList></userList>

@@ -1,16 +1,8 @@
 <template>
     <div id="main">
-        <header id="header">
-            <h1>
-                <router-link :to="{name: 'home'}">
-                    Laravel Vue SPA
-                </router-link>
-            </h1>
-            <navigationMenu></navigationMenu>
-        </header>
-        <div id="content">
-            <router-view></router-view>
-        </div>
+<!--        <navigationMenu></navigationMenu>-->
+
+        <router-view></router-view>
     </div>
 </template>
 
