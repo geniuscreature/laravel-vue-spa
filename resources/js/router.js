@@ -16,7 +16,6 @@ const routes = [
     path: '/',
     name: 'home',
     redirect: '/register',
-    component: Home,
     meta: {
       auth: undefined
     }
@@ -38,14 +37,33 @@ const routes = [
     }
   },
   // USER ROUTES
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,
-    meta: {
-      auth: true
-    }
-  },
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        redirect: '/dashboard/notes',
+        component: Dashboard,
+        meta: {
+            auth: true
+        },
+        children: [
+            {
+                path: '/dashboard/notes',
+                name: 'notes',
+                component: Notes
+            },
+            {
+                path: '/dashboard/reminders',
+                name: 'reminders',
+                component: Reminders
+            },
+            {
+                path: '/dashboard/todo',
+                name: 'todo',
+                component: Todo
+            },
+        ]
+    },
+
   // ADMIN ROUTES
   {
     path: '/admin',

@@ -1,61 +1,157 @@
 <template>
-    <v-form ref="form" v-model="valid" lazy-validation class="content">
-        <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
-
-        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-        <v-select v-model="select" :items="items" :rules="[v => !!v || 'Item is required']" label="Item" required></v-select>
-
-        <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
-
-        <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Validate</v-btn>
-
-        <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-
-        <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
-    </v-form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form @submit.prevent>
+                    <div class="form-group">
+                        <label for="event_name" class="rem-title">{{$t('eventName')}}</label>
+                        <input type="text" id="event_name" class="form-control" v-model="newEvent.event_name">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="start_date" class="rem-title">{{$t('startDate')}}</label>
+                                <input type="date" id="start_date" class="form-control" v-model="newEvent.start_date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="end_date" class="rem-title">{{$t('endDate')}}</label>
+                                <input type="date" id="end_date" class="form-control" v-model="newEvent.end_date">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4" v-if="addingMode">
+                            <button class="btn btn-sm btn-primary" @click="addNewEvent">{{$t('save')}}</button>
+                        </div>
+                        <template v-else>
+                            <div class="col-md-6 mb-4">
+                                <button class="btn btn-sm btn-success" @click="updateEvent">{{$t('update')}}</button>
+                                <button class="btn btn-sm btn-danger" @click="deleteEvent">{{$t('delete')}}</button>
+                                <button class="btn btn-sm btn-secondary" @click="addingMode = !addingMode">{{$t('cancel')}}</button>
+                            </div>
+                        </template>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <Fullcalendar @eventClick="showEvent" :plugins="calendarPlugins" :events="events"/>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
+    import Fullcalendar from "@fullcalendar/vue";
+    import dayGridPlugin from "@fullcalendar/daygrid";
+    import interactionPlugin from "@fullcalendar/interaction";
+    import axios from "axios";
     export default {
-        data: () => ({
-            valid: true,
-            name: '',
-            nameRules: [
-                v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-            ],
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-            ],
-            select: null,
-            items: [
-                'Item 1',
-                'Item 2',
-                'Item 3',
-                'Item 4',
-            ],
-            checkbox: false,
-        }),
-
-        methods: {
-            validate () {
-                if (this.$refs.form.validate()) {
-                    this.snackbar = true
-                }
-            },
-            reset () {
-                this.$refs.form.reset()
-            },
-            resetValidation () {
-                this.$refs.form.resetValidation()
-            },
+        components: {
+            Fullcalendar
         },
-    }
+        data() {
+            return {
+                calendarPlugins: [dayGridPlugin, interactionPlugin],
+                events: "",
+                newEvent: {
+                    event_name: "",
+                    start_date: "",
+                    end_date: ""
+                },
+                addingMode: true,
+                indexToUpdate: ""
+            };
+        },
+        created() {
+            this.getEvents();
+        },
+        methods: {
+            addNewEvent() {
+                axios
+                    .post("/calendar", {
+                        ...this.newEvent
+                    })
+                    .then(data => {
+                        this.getEvents(); // update our list of events
+                        this.resetForm(); // clear newEvent properties (e.g. title, start_date and end_date)
+                    })
+                    .catch(err =>
+                        console.log("Unable to add new event!", err.response.data)
+                    );
+            },
+            showEvent(arg) {
+                this.addingMode = false;
+                const { id, title, start, end } = this.events.find(
+                    event => event.id === +arg.event.id
+                );
+                this.indexToUpdate = id;
+                this.newEvent = {
+                    event_name: title,
+                    start_date: start,
+                    end_date: end
+                };
+            },
+            updateEvent() {
+                axios
+                    .put("/calendar/" + this.indexToUpdate, {
+                        ...this.newEvent
+                    })
+                    .then(resp => {
+                        this.resetForm();
+                        this.getEvents();
+                        this.addingMode = !this.addingMode;
+                    })
+                    .catch(err =>
+                        console.log("Unable to update event!", err.response.data)
+                    );
+            },
+            deleteEvent() {
+                axios
+                    .delete("/calendar/" + this.indexToUpdate)
+                    .then(resp => {
+                        this.resetForm();
+                        this.getEvents();
+                        this.addingMode = !this.addingMode;
+                    })
+                    .catch(err =>
+                        console.log("Unable to delete event!", err.response.data)
+                    );
+            },
+            getEvents() {
+                axios
+                    .get("/calendar")
+                    .then(resp => (this.events = resp.data.data))
+                    .catch(err => console.log(err.response.data));
+            },
+            resetForm() {
+                Object.keys(this.newEvent).forEach(key => {
+                    return (this.newEvent[key] = "");
+                });
+            }
+        },
+        watch: {
+            indexToUpdate() {
+                return this.indexToUpdate;
+            }
+        }
+    };
 </script>
 
-<style>
+<style lang="css" scope>
+    @import "~@fullcalendar/core/main.css";
+    @import "~@fullcalendar/daygrid/main.css";
+    .fc-title {
+        color: #fff;
+    }
+    .fc-title:hover {
+        cursor: pointer;
+    }
 
+    .rem-title,
+    .fc-toolbar h2,
+    .fc-view-container *,
+    .fc-day-number {
+        color: #fff;
+        font-family: 'MontserratR', sans-serif;
+    }
 </style>

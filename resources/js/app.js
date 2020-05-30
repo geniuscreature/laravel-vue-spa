@@ -9,13 +9,16 @@ import VueRouter from 'vue-router'
 import Index from './Index'
 import auth from './auth'
 import router from './router'
-
+import store from './store/index'
+import {i18n} from "./plugins/i18n"
+import FlagIcon from 'vue-flag-icon'
 // Set Vue globally
-window.Vue = Vue
+window.Vue = Vue;
 
 // Set Vue router
 Vue.router = router
 Vue.use(VueRouter)
+Vue.use(FlagIcon)
 Vue.use(Vuetify)
 
 // Set Vue authentication
@@ -25,8 +28,11 @@ Vue.use(VueAuth, auth)
 
 // Load Index
 Vue.component('index', Index)
+
 const app = new Vue({
   el: '#app',
   router,
   vuetify: new Vuetify(),
+  store,
+  i18n,
 });

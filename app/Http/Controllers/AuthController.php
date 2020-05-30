@@ -14,6 +14,7 @@ class AuthController extends Controller
     {
         $v = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
+            'name' => 'required|min:2|max:20',
             'password'  => 'required|min:3|confirmed',
         ]);
 
@@ -27,6 +28,7 @@ class AuthController extends Controller
 
         $user = new User;
         $user->email = $request->email;
+        $user->name = $request->name;
         $user->password = bcrypt($request->password);
         $user->save();
 

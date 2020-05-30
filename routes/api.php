@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
+// auth ===============================================================
 Route::prefix('auth')->group(function () {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
@@ -30,3 +31,19 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('users', 'UserController@index')->middleware('isAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
 });
+
+
+// notes ===============================================================
+Route::post('posts', 'PostController@store');
+
+Route::get('posts', 'PostController@get');
+
+Route::delete('posts/{id}', 'PostController@delete');
+
+Route::get('posts/{id}', 'PostController@edit');
+
+Route::put('posts-update', 'PostController@update');
+
+
+// calendar ============================================================
+Route::apiResource('/calendar', 'CalendarController');
