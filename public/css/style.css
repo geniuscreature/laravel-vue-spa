@@ -1,0 +1,289 @@
+@import url('fonts.css');
+/*
+NunitoL - light
+NunitoR - regular
+NunitoSB - semi-bold
+NunitoB - bold
+NunitoEB - extra-bold
+NunitoBl - black
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+}
+
+.index {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.info {
+    flex-basis: 50%;
+    background: #001e32;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.info-top {
+    flex-basis: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.info-title {
+    display: flex;
+    align-items: center;
+}
+
+.info-lang {
+    display: flex;
+    width: 70px;
+    justify-content: space-between;
+}
+
+.set-locale {
+    cursor: pointer;
+    width: 30px;
+    padding: 5px;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+.title {
+    font-family: 'MontserratEL', sans-serif;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: -11px;
+}
+
+.logo {
+    width: 36px;
+}
+
+.lang {
+    font-family: 'MontserratR', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.lang:hover {
+    text-decoration: underline;
+}
+
+.info-content {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.list {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 90%;
+    justify-content: center;
+}
+
+.list-thing {
+    color: #fff;
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'MontserratL', sans-serif;
+    font-size: 1.3rem;
+}
+
+.list-thing-img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.info-contacts {
+    display: flex;
+    align-self: flex-end;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-basis: 100%;
+    color: #fff;
+    font-family: 'MontserratEL', sans-serif;
+    font-size: 1rem;
+}
+
+/* reg ========================== */
+.reg {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.reg-login {
+    height: 100vh;
+}
+
+.form {
+    flex-basis: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-name,
+.form-email,
+.form-password,
+.form-btn,
+.form-have-account{
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.subtitle-input {
+    width: 80px;
+}
+
+.form-title {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'MontserratL', sans-serif;
+    font-size: 3rem;
+    color: #8150eb;
+}
+
+.reg-input {
+    flex-basis: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #8150eb;
+    padding: 10px 0;
+    font-family: 'MontserratEL', sans-serif;
+    font-size: 1.3rem;
+    color: #8150eb;
+    border-radius: 0;
+}
+
+
+.form-btn {
+    justify-content: center;
+}
+
+.form-btn-reg {
+    cursor: pointer;
+    border: 1px solid #8150eb;
+    outline: none;
+    background: none;
+    font-family: 'MontserratL', sans-serif;
+    font-size: 1.3rem;
+    width: 200px;
+    padding: 10px 0;
+    position: relative;
+    color: #8150eb;
+}
+
+.form-btn-reg:hover:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    border: none;
+    border-bottom: 15px solid #FFF;
+    border-left: 15px solid #8150eb;
+}
+
+.form-have-account {
+    justify-content: center;
+    font-family: 'MontserratL', sans-serif;
+    font-size: 1.2rem;
+}
+
+.form-have-account-link {
+    color: #8150eb;
+}
+
+ol, ul, dl {
+    margin-bottom: 0;
+}
+
+.username {
+    color: #fff;
+    font-family: 'MontserratR', sans-serif;
+}
+
+
+
+/* media =============================================================*/
+
+@media screen and (max-width: 1260px) {
+    .info,
+    .reg {
+        flex-basis: 100%;
+    }
+
+    .index {
+        height: unset;
+    }
+
+    .info {
+        height: 100vh;
+    }
+
+    .reg {
+        height: 100vh;
+    }
+
+    /*.info-content, info-contacts {*/
+    /*    padding-top: 200px;*/
+    /*}*/
+}
+
+@media screen and (max-width: 670px) {
+    .form {
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
+    .form-name,
+    .form-email,
+    .form-password,
+    .form-btn,
+    .form-have-account{
+        flex-basis: 60%;
+    }
+}
+
+@media screen and (max-width: 464px) {
+    .list-thing,
+    .form-btn-reg,
+    .reg-input {
+        font-size: 1.1rem;
+    }
+
+    .form-have-account-link {
+        font-size: 1rem;
+    }
+    .form-title {
+        font-size: 1.8rem;
+    }
+}

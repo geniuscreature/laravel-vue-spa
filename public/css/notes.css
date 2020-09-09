@@ -1,0 +1,200 @@
+@import url('fonts.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.header-logo-img {
+    width: 30px;
+}
+
+.header-logo-name {
+    font-family: 'MontserratEL', sans-serif;
+    font-size: 2rem;
+    margin-top: 5px;
+    color: #fff;
+}
+
+.content {
+    padding: 20px;
+}
+
+.v-content__wrap {
+    background: #001a2b;
+}
+
+.v-application p {
+    margin-bottom: 0;
+}
+
+.theme--light.v-card {
+    background-color: #001a2b;
+    border: 1px solid #fff;
+}
+
+.list-item {
+    padding: 0 20px;
+}
+
+.list-item-title {
+    color: #fff;
+    cursor: pointer;
+}
+
+.list-item-title:hover {
+    color: #8150EB;
+}
+
+.title-input {
+    outline: none;
+    font-family: 'MontserratR', sans-serif;
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.textarea {
+    font-family: 'MontserratR', sans-serif;
+    font-size: 1.2rem;
+    width: 100%;
+    height: 200px;
+    color: #fff;
+    overflow: auto;
+    outline: none;
+}
+
+.add-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.add-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid #fff;
+    background: #001a2b;
+}
+
+.title-input {
+    width: 100%;
+}
+
+.note-title,
+.note-content {
+    color: #fff;
+}
+
+.note-title {
+    font-size: 1.2rem;
+}
+
+.note-content {
+    font-size: 1rem;
+}
+
+.notes {
+    height: auto;
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.notes-field {
+    /*border: 1px solid #fff;*/
+    border-radius: 15px;
+    position: relative;
+    min-width: 250px;
+    width: 250px;
+    height: 150px;
+    z-index: 2;
+    padding: 10px;
+    margin: 0 15px 20px 0;
+    background: #003252;
+}
+
+.notes-field-red {
+    background: #b50710;
+}
+
+.notes-field-blue {
+    background: #7e0cf5;
+}
+
+.notes-field-pink {
+    background: #d102ce;
+}
+
+.notes-field-green {
+    background: #04db48;
+}
+
+.notes-field-red {
+    background: #95bcfc;
+}
+
+.notes-field-yellow {
+    background: #fff64c;
+}
+.notes-field-pass {
+    background: #090057;
+}
+
+.delete-post-btn {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    margin-right: -5px;
+    width: 35px;
+    height: 35px;
+    z-index: 1000;
+}
+
+.img-bin {
+    width: 30px;
+}
+
+.notes-field:hover .delete-post-btn {
+    display: block;
+}
+
+.saveEdit {
+    color: #fff;
+}
+
+.saveEdit {
+    box-shadow: none;
+}
+
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: unset;
+    color: #fff;
+}
+
+
+
+/* media ========================================*/
+@media screen and (max-width: 586px) {
+    .notes-field {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 20px 0;
+    }
+}
+
+
